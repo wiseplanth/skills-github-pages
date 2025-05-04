@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookmarked App</title>
+
+    <!-- Web App Manifest (for PWA) -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="My App">
+    <link rel="icon" href="favicon.ico">
+
+</head>
+<body>
+    <h1>Welcome to My App</h1>
+    <p>This is a simple web page that you can add to your home screen.</p>
+
+    <button onclick="addToHomeScreen()">Add to Home Screen</button>
+
+    <script>
+        function addToHomeScreen() {
+            // This will prompt users to add the site to the home screen (for supported browsers)
+            if (window.deferredPrompt) {
+                window.deferredPrompt.prompt();
+                window.deferredPrompt.userChoice.then(function(choiceResult) {
+                    console.log(choiceResult.outcome);
+                    window.deferredPrompt = null;
+                });
+            }
+        }
+
+        // Handle "beforeinstallprompt" event (for PWA)
+        window.addEventListener('beforeinstallprompt', function(e) {
+            window.deferredPrompt = e;
+        });
+    </script>
+</body>
+</html>
 
